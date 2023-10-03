@@ -4,8 +4,6 @@ import { connectDB } from "@/utils/database";
 // export const revalidate = 60;
 
 export default async function Home() {
-  await fetch("/URL");
-
   // {cache: 'force-cache'}는 생략해도 GET 요청 결과를 캐싱함
   // await fetch('/URL', {cache: 'force-cache'})
 
@@ -18,10 +16,8 @@ export default async function Home() {
   // axios를 사용할 경우, axios는 자체적으로 캐싱 기능이 내장되어있지 않기에,
   // 별도의 캐싱 라이브러리를 찾고 설정해야함
 
-  const db = (await connectDB()).db("forum");
-  let results = await db.collection("post").find().toArray();
-
-  console.log(results);
+  // const db = (await connectDB()).db("forum");
+  // let results = await db.collection("post").find().toArray();
 
   return <div>HI</div>;
 }

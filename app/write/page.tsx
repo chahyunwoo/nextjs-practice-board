@@ -1,4 +1,13 @@
-export default function Write() {
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
+
+export default async function Write() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return <div>로그인 후 작성 가능합니다.</div>;
+  }
+
   return (
     <div>
       <h4>글쓰기</h4>

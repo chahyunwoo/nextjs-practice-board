@@ -1,5 +1,7 @@
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { connectDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
 
 interface Params {
   id: string;
@@ -10,6 +12,8 @@ interface IParams {
 }
 
 export default async function Edit({ params }: IParams) {
+  const session = await getServerSession(authOptions);
+
   const db = (await connectDB()).db("forum");
   let results = await db
     .collection("post")
@@ -17,6 +21,15 @@ export default async function Edit({ params }: IParams) {
 
   if (!results) {
     throw new Error();
+  }
+
+  if (results) {
+    if (
+      session?.user.email !== results.author &&
+      session?.user.role !== "admin"
+    ) {
+      return <div>본인만 수정 가능</div>;
+    }
   }
 
   return (

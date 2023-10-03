@@ -5,6 +5,7 @@ interface IPost {
   _id: string;
   title: string;
   content: string;
+  author: string;
 }
 
 export const dynamic = "force-dynamic";
@@ -17,11 +18,12 @@ export default async function List() {
     title: result.title,
     content: result.content,
     _id: result._id.toString(),
+    author: result.author,
   }));
 
   return (
     <div className="list-bg">
-      <ListItem results={formattedResults} />{" "}
+      <ListItem results={formattedResults} />
     </div>
   );
 }
