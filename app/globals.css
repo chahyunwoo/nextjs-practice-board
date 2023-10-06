@@ -30,3 +30,10 @@ button {
   border: none;
   border-radius: 5px;
 }
+
+.dark-mode .navbar {
+  background-color: #222;
+}
+.dark-mode .navbar a {
+  color: white;
+}

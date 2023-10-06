@@ -1,6 +1,7 @@
 import Comments from "@/components/Comments";
 import { connectDB } from "@/utils/database";
 import { ObjectId } from "mongodb";
+import { notFound } from "next/navigation";
 
 interface Params {
   id: string;
@@ -16,8 +17,8 @@ export default async function Detail({ params }: IParams) {
     .collection("post")
     .findOne({ _id: new ObjectId(params.id) });
 
-  if (!results) {
-    throw new Error();
+  if (results === null) {
+    return notFound();
   }
 
   return (

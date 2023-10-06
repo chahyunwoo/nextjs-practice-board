@@ -20,7 +20,6 @@ export default function Comments({ parent }: IComments) {
 
   const getComments = async () => {
     const response = await axios.get(`/api/comments/list?id=${parent}`);
-    console.log(response.data);
 
     setDatas(response.data);
   };

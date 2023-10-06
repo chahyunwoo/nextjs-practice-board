@@ -6,6 +6,8 @@ import LoginButton from "@/components/LoginButton";
 import LogoutButton from "@/components/LogoutButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { cookies } from "next/headers";
+import DarkMode from "@/components/DarkMode";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +23,16 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
 
+  const res = cookies().get("mode");
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className="bg-white p-[20px]">
+      <body
+        className={`${inter.className} ${
+          res !== undefined && res.value === "dark" ? "dark-mode" : ""
+        }`}
+      >
+        <div className="bg-white p-[20px] navbar">
           <Link
             href="/"
             className="mr-[10px] no-underline text-black font-bold"
@@ -46,6 +54,7 @@ export default async function RootLayout({
           ) : (
             <LoginButton />
           )}
+          <DarkMode />
         </div>
         {children}
       </body>
