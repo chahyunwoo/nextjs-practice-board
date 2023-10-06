@@ -25,7 +25,7 @@ export default async function Detail({ params }: IParams) {
       <h4>상세페이지</h4>
       <h4>{results.title}</h4>
       <p>{results.content}</p>
-      <Comments />
+      <Comments parent={results._id.toString()} />
     </div>
   );
 }
